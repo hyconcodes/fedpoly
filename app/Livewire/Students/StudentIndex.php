@@ -30,9 +30,11 @@ class StudentIndex extends Component
             ->whereHas('roles', function ($query) {
                 $query->where('name', 'Student');
             })
-            ->where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('email', 'like', '%' . $this->search . '%')
-            ->orWhere('matric_no', 'like', '%' . $this->search . '%')
+            ->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                      ->orWhere('email', 'like', '%' . $this->search . '%')
+                      ->orWhere('matric_no', 'like', '%' . $this->search . '%');
+            })
             ->orderBy('updated_at', 'desc')
             ->paginate(8);
         return view('livewire.students.student-index', compact('students'));

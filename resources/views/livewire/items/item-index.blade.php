@@ -1,10 +1,10 @@
 <div>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold">Structure Inventory</h2>
-            <a href="{{ route('structures.create') }}"
+            <h2 class="text-2xl font-bold">Item Inventory</h2>
+            <a href="{{ route('items.create') }}"
                 class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                Add New Structure
+                Add New Item
             </a>
         </div>
         {{-- Search Bar --}}
@@ -12,7 +12,7 @@
             <input
                 type="text"
                 wire:model.live.debounce.300ms="search"
-                placeholder="Search structures..."
+                placeholder="Search items..."
                 class="w-full sm:w-1/3 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
         </div>
@@ -25,24 +25,30 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Name</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Location</th>
+                                Quantity</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Unit</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Description</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($structures as $structure)
+                        @forelse($items as $item)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $structure->name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $structure->location }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $item->name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $item->quantity }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $item->unit }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $item->description }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <div class="flex space-x-2">
-                                        <a href="{{ route('structures.edit', $structure) }}"
+                                        <a href="{{ route('items.edit', $item) }}"
                                             class="text-indigo-600 hover:text-indigo-900" title="Edit">
                                             <flux:icon.pencil-square/>
                                         </a>
                                         <button wire:confirm="Are you sure you want to delete this?"
-                                            wire:click="deleteStructure({{ $structure->id }})"
+                                            wire:click="deleteItem({{ $item->id }})"
                                             class="text-red-600 hover:text-red-900" title="Delete">
                                             <flux:icon.trash/>
                                         </button>
@@ -54,7 +60,7 @@
                                 <td colspan="5" class="px-6 py-4 text-center text-gray-500">
                                     <div class="flex flex-col items-center justify-center">
                                         <flux:icon.information-circle class="w-8 h-8 mb-2 text-gray-400"/>
-                                        No structures found.
+                                        No items found.
                                     </div>
                                 </td>
                             </tr>
@@ -63,7 +69,7 @@
                 </table>
             </div>
             <div class="px-6 py-4">
-                {{ $structures->links() }}
+                {{ $items->links() }}
             </div>
         </div>
     </div>

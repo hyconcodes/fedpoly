@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Builder;
 // dmgj yqmw plnk jkav
 class User extends Authenticatable // implements MustVerifyEmail
 {
@@ -91,4 +92,17 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->belongsTo(Department::class);
     }
+
+    // protected static function booted()
+    // {
+    //     // Use the Auth facade to safely access the authenticated user
+    //     $user = \Illuminate\Support\Facades\Auth::user();
+    //     if ($user && !$user->hasRole('Super admin')) {
+    //         static::addGlobalScope('excludeAdmin', function (Builder $builder) {
+    //             $builder->whereDoesntHave('roles', function ($query) {
+    //                 $query->where('name', 'Super admin');
+    //             });
+    //         });
+    //     }
+    // }
 }

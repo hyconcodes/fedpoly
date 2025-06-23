@@ -36,11 +36,12 @@ class StaffIndex extends Component
             ->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('email', 'like', '%' . $this->search . '%')
-                    ->orWhereHas('roles', function($query) {
+                    ->orWhereHas('roles', function ($query) {
                         $query->where('name', 'like', '%' . $this->search . '%');
                     });
             })
             ->orderBy('updated_at', 'desc')
-            ->paginate(8);        return view('livewire.staffs.staff-index', compact('staffs'));
+            ->paginate(8);
+        return view('livewire.staffs.staff-index', compact('staffs'));
     }
 }

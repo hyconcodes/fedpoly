@@ -15,9 +15,15 @@
 
         <flux:navlist variant="outline">
             <flux:navlist.group :heading="__('Platform')" class="grid">
+                @role('Student')
+                <flux:navlist.item icon="home" :href="route('student.dashboard')" :current="request() -> routeIs('student.dashboard')"
+                    wire:navigate>{{ __('Dashboard') }}
+                </flux:navlist.item>
+                @else
                 <flux:navlist.item icon="home" :href="route('dashboard')" :current="request() -> routeIs('dashboard')"
                     wire:navigate>{{ __('Dashboard') }}
                 </flux:navlist.item>
+                @endrole
 
                 <flux:navlist.item icon="user-group" :href="route('roles.index')"
                     :current="request()-> routeIs('roles.index')" wire:navigate>{{ __('Role') }}
@@ -50,7 +56,7 @@
                 <flux:navlist.item icon="home-modern" :href="route('structures')" :current="request() -> routeIs('structures')"
                     wire:navigate>{{ __('Structure') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="cog" :href="route('dashboard')" :current="request() -> routeIs('dashboard')"
+                <flux:navlist.item icon="cog" :href="route('items')" :current="request() -> routeIs('items')"
                     wire:navigate>{{ __('Items') }}
                 </flux:navlist.item>
             </flux:navlist.group>

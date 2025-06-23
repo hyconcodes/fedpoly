@@ -50,6 +50,27 @@ class PermissionSeeder extends Seeder
             // 'view.student.account',
             // 'edit.student.account',
             // 'delete.student.account',
+
+            'view.structures',
+            'create.structures',
+            'edit.structures',
+            'delete.structures',
+
+            'view.items',
+            'create.items',
+            'edit.items',
+            'delete.items',
+
+            'view.idc',
+            'create.idc',
+            'edit.idc',
+            'delete.idc',
+            'pay.idc',
+            
+            'view.transcript',
+            'create.transcript',
+            'edit.transcript',
+            'delete.transcript',
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
