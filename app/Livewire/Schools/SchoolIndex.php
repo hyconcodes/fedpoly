@@ -17,7 +17,7 @@ class SchoolIndex extends Component
             redirect(route('schools.index'));
         }
         $school->delete();
-        session()->flash('success', 'Role deleted successfully.');
+        session()->flash('success', 'Schol deleted successfully.');
         redirect(route('schools.index'));
     }
 

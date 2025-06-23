@@ -5,19 +5,13 @@
 
     <form wire:submit="createRole" class="max-w-2xl space-y-6 my-8">
         <!-- Name -->
-        <flux:input
-            wire:model="name"
-            :label="__('Name')"
-            type="text"
-            required
-            autofocus
-            autocomplete="name"
+        <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name"
             :placeholder="__('Role name')" />
 
         <!-- Permissions -->
-        <flux:checkbox.group wire:model="permissions" label="Permission">
+        <flux:checkbox.group wire:model="permissions" label="Permission" class="grid grid-cols-4 gap-2">
             @foreach ($allPermissions as $permission)
-            <flux:checkbox label="{{$permission->name}}" value="{{$permission->name}}" checked />
+                <flux:checkbox label="{{ $permission->name }}" value="{{ $permission->name }}" checked />
             @endforeach
         </flux:checkbox.group>
 

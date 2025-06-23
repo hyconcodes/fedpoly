@@ -38,6 +38,21 @@
                 <flux:navlist.item icon="user-circle" :href="route('students.index')"
                     :current="request()-> routeIs('students.index')" wire:navigate>{{ __('Manage Students') }}
                 </flux:navlist.item>
+
+                <flux:navlist.item icon="user" :href="route('staffs.index')"
+                    :current="request()-> routeIs('staffs.index')" wire:navigate>{{ __('Manage Staffs') }}
+                </flux:navlist.item>
+            </flux:navlist.group>
+        </flux:navlist>
+
+        <flux:navlist variant="outline">
+            <flux:navlist.group :heading="__('Inventory')" class="grid" expandable>
+                <flux:navlist.item icon="home-modern" :href="route('structures')" :current="request() -> routeIs('structures')"
+                    wire:navigate>{{ __('Structure') }}
+                </flux:navlist.item>
+                <flux:navlist.item icon="cog" :href="route('dashboard')" :current="request() -> routeIs('dashboard')"
+                    wire:navigate>{{ __('Items') }}
+                </flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 
@@ -60,7 +75,8 @@
             <flux:profile 
             :name="auth()->user()->name"
             :initials="auth()->user()->initials()"
-            icon:trailing="chevrons-up-down" 
+            icon:trailing="chevrons-up-down"
+            avatar:color="auto"
             />
 
             <flux:menu class="w-[220px]">

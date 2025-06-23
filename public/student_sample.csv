@@ -1,0 +1,52 @@
+name    , email               , matric           , year_of_entry, gender, father_name      , mother_name     , phone            , date_of_birth
+Olalekan, olalekan@gmail.com  , FPA/AC/22/3/2345 , 2022-09-10   , Male  , Britanney Leonard, Aubrey Russo    , +1 (382) 814-8571, 1970-09-10
+Yemi    , yemi@gmail.com      , FPA/AC/22/3/6787 , 2022-09-11   , Female, Ariana Mckenzie  , Carla Oneill    , +1 (232) 685-4261, 1973-02-08
+Blessing, blessing@gmail.com  , FPA/AC/22/3/9876 , 2022-09-12   , Female, Akeem Lester     , Mallory Winters , +1 (736) 196-8936, 1975-07-10
+Faith   , faith@gmail.com     , FPA/AC/22/3/7874 , 2022-09-13   , Female, Thor Rosales     , Desiree Crawford, +1 (363) 404-1739, 1977-12-08
+Omowumi , wumi@gmail.com      , FPA/AC/22/3/9757 , 2022-09-14   , Female, Vance Carroll    , Vaughan Francis , +1 (168) 535-3775, 1980-05-08
+Taiwo   , taiwo@gmail.com     , FPA/AC/22/3/01112, 2022-09-15   , Female, Paki Boyd        , Deanna Arnold   , +1 (512) 822-9148, 1982-10-07
+Hycon   , hyconcodes@gmail.com, FPA/AC/22/3/01113, 2022-09-16   , Male  , Anthony Kehinde  , Modupe Remi     , 2347010203040    , 1985-03-07
+John    , john@gmail.com      , FPA/AC/22/3/01114, 2022-09-17   , Male  , Michael Smith    , Sarah Johnson   , +1 (555) 123-4567, 1988-06-15
+Emma    , emma@gmail.com      , FPA/AC/22/3/01115, 2022-09-18   , Female, David Brown      , Lisa Davis      , +1 (555) 234-5678, 1990-09-22
+James   , james@gmail.com     , FPA/AC/22/3/01116, 2022-09-19   , Male  , Robert Wilson    , Mary Anderson   , +1 (555) 345-6789, 1992-12-30
+Sophia  , sophia@gmail.com    , FPA/AC/22/3/01117, 2022-09-20   , Female, William Taylor   , Jennifer Martin , +1 (555) 456-7890, 1995-03-18
+Lucas   , lucas@gmail.com     , FPA/AC/22/3/01118, 2022-09-21   , Male  , Joseph Thompson  , Elizabeth White , +1 (555) 567-8901, 1997-06-25
+Olivia  , olivia@gmail.com    , FPA/AC/22/3/01119, 2022-09-22   , Female, Charles Garcia   , Patricia Moore  , +1 (555) 678-9012, 1999-09-12
+Ethan   , ethan@gmail.com     , FPA/AC/22/3/01120, 2022-09-23   , Male  , Thomas Rodriguez , Linda Martinez  , +1 (555) 789-0123, 2001-12-20
+Ava     , ava@gmail.com       , FPA/AC/22/3/01121, 2022-09-24   , Female, Daniel Lee       , Barbara Jackson , +1 (555) 890-1234, 2003-03-28
+Noah    , noah@gmail.com      , FPA/AC/22/3/01122, 2022-09-25   , Male  , Paul Clark       , Susan White     , +1 (555) 901-2345, 1987-07-05
+Isabella, isabella@gmail.com  , FPA/AC/22/3/01123, 2022-09-26   , Female, Mark Wright      , Jessica Brown   , +1 (555) 012-3456, 1989-10-12
+Mason   , mason@gmail.com     , FPA/AC/22/3/01124, 2022-09-27   , Male  , Donald King      , Margaret Wilson , +1 (555) 123-4567, 1991-01-19
+Mia     , mia@gmail.com       , FPA/AC/22/3/01125, 2022-09-28   , Female, George Lopez     , Dorothy Taylor  , +1 (555) 234-5678, 1993-04-26
+Alexander, alex@gmail.com     , FPA/AC/22/3/01126, 2022-09-29   , Male  , Kenneth Adams    , Helen Anderson  , +1 (555) 345-6789, 1995-07-03
+Charlotte, charlotte@gmail.com, FPA/AC/22/3/01127, 2022-09-30   , Female, Steven Nelson    , Sandra Thomas   , +1 (555) 456-7890, 1997-10-10
+William , william@gmail.com   , FPA/AC/22/3/01128, 2022-10-01   , Male  , Edward Baker     , Ashley Garcia   , +1 (555) 567-8901, 2000-01-17
+Amelia  , amelia@gmail.com    , FPA/AC/22/3/01129, 2022-10-02   , Female, Brian Mitchell   , Kimberly Moore  , +1 (555) 678-9012, 2002-04-24
+Benjamin, benjamin@gmail.com  , FPA/AC/22/3/01130, 2022-10-03   , Male  , Ronald Roberts   , Emily Martinez  , +1 (555) 789-0123, 2004-07-31
+Evelyn  , evelyn@gmail.com    , FPA/AC/22/3/01131, 2022-10-04   , Female, Anthony Campbell , Michelle Robinson, +1 (555) 890-1234, 1986-11-07
+Daniel  , daniel@gmail.com    , FPA/AC/22/3/01132, 2022-10-05   , Male  , Kevin Carter     , Christina Lee   , +1 (555) 901-2345, 1989-02-14
+Elizabeth, elizabeth@gmail.com, FPA/AC/22/3/01133, 2022-10-06   , Female, Jason Phillips   , Laura Clark     , +1 (555) 012-3456, 1991-05-23
+Matthew , matthew@gmail.com   , FPA/AC/22/3/01134, 2022-10-07   , Male  , Jeffrey Evans    , Sarah Wright    , +1 (555) 123-4567, 1993-08-30
+Victoria, victoria@gmail.com  , FPA/AC/22/3/01135, 2022-10-08   , Female, Gary Edwards     , Amanda King     , +1 (555) 234-5678, 1995-12-07
+Henry   , henry@gmail.com     , FPA/AC/22/3/01136, 2022-10-09   , Male  , Frank Collins    , Melissa Lopez   , +1 (555) 345-6789, 1998-03-14
+Scarlett, scarlett@gmail.com  , FPA/AC/22/3/01137, 2022-10-10   , Female, Scott Stewart    , Rebecca Adams   , +1 (555) 456-7890, 2000-06-21
+Sebastian, sebastian@gmail.com, FPA/AC/22/3/01138, 2022-10-11   , Male  , Eric Morris     , Deborah Nelson  , +1 (555) 567-8901, 2002-09-28
+Luna    , luna@gmail.com      , FPA/AC/22/3/01139, 2022-10-12   , Female, Stephen Reed     , Sharon Baker    , +1 (555) 678-9012, 2004-12-05
+Jack    , jack@gmail.com      , FPA/AC/22/3/01140, 2022-10-13   , Male  , Andrew Cook      , Cynthia Mitchell, +1 (555) 789-0123, 1987-03-12
+Chloe   , chloe@gmail.com     , FPA/AC/22/3/01141, 2022-10-14   , Female, Timothy Morgan   , Kathleen Roberts, +1 (555) 890-1234, 1989-06-19
+Owen    , owen@gmail.com      , FPA/AC/22/3/01142, 2022-10-15   , Male  , Sean Cooper      , Amy Campbell   , +1 (555) 901-2345, 1991-09-26
+Layla   , layla@gmail.com     , FPA/AC/22/3/01143, 2022-10-16   , Female, Philip Reed      , Shirley Carter , +1 (555) 012-3456, 1993-12-03
+Julian  , julian@gmail.com    , FPA/AC/22/3/01144, 2022-10-17   , Male  , Gary Sanders     , Angela Phillips , +1 (555) 123-4567, 1996-03-10
+Aria    , aria@gmail.com      , FPA/AC/22/3/01145, 2022-10-18   , Female, Dennis Price     , Ruth Evans      , +1 (555) 234-5678, 1998-06-17
+Leo     , leo@gmail.com       , FPA/AC/22/3/01146, 2022-10-19   , Male  , Peter Bennett    , Carol Edwards   , +1 (555) 345-6789, 2000-09-24
+Zoe     , zoe@gmail.com       , FPA/AC/22/3/01147, 2022-10-20   , Female, Douglas Wood     , Sharon Collins  , +1 (555) 456-7890, 2003-01-01
+Gabriel , gabriel@gmail.com   , FPA/AC/22/3/01148, 2022-10-21   , Male  , Henry Barnes     , Nicole Stewart  , +1 (555) 567-8901, 1988-04-08
+Lily    , lily@gmail.com      , FPA/AC/22/3/01149, 2022-10-22   , Female, Carl Ross        , Marie Morris    , +1 (555) 678-9012, 1990-07-15
+David   , david@gmail.com     , FPA/AC/22/3/01150, 2022-10-23   , Male  , Arthur Henderson , Catherine Reed  , +1 (555) 789-0123, 1992-10-22
+Aurora  , aurora@gmail.com    , FPA/AC/22/3/01151, 2022-10-24   , Female, Roger Coleman    , Virginia Cook   , +1 (555) 890-1234, 1995-01-29
+Joseph  , joseph@gmail.com    , FPA/AC/22/3/01152, 2022-10-25   , Male  , Lawrence Jenkins , Julie Morgan    , +1 (555) 901-2345, 1997-05-07
+Riley   , riley@gmail.com     , FPA/AC/22/3/01153, 2022-10-26   , Female, Wayne Perry      , Joyce Cooper    , +1 (555) 012-3456, 1999-08-14
+Christopher, chris@gmail.com  , FPA/AC/22/3/01154, 2022-10-27   , Male  , Eugene Powell    , Heather Reed    , +1 (555) 123-4567, 2001-11-21
+Ellie   , ellie@gmail.com     , FPA/AC/22/3/01155, 2022-10-28   , Female, Russell Long     , Frances Sanders , +1 (555) 234-5678, 2004-02-28
+Andrew  , andrew@gmail.com    , FPA/AC/22/3/01156, 2022-10-29   , Male  , Bobby Hughes     , Cheryl Price    , +1 (555) 345-6789, 1986-06-05
+Nora    , nora@gmail.com      , FPA/AC/22/3/01157, 2022-10-30   , Female, Johnny Butler    , Martha Bennett  , +1 (555) 456-7890, 1988-09-12

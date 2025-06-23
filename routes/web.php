@@ -12,11 +12,22 @@ use App\Livewire\Roles\RolesIndex;
 use App\Livewire\Schools\SchoolCreate;
 use App\Livewire\Schools\SchoolEdit;
 use App\Livewire\Schools\SchoolIndex;
+use App\Livewire\Staffs\StaffCreate;
+use App\Livewire\Staffs\StaffEdit;
+use App\Livewire\Staffs\StaffIndex;
+use App\Livewire\Staffs\StaffShow;
+use App\Livewire\Structures\StructureCreate;
+use App\Livewire\Structures\StructureEdit;
+use App\Livewire\Structures\StructureIndex;
 use App\Livewire\Students\StudentCreate;
 use App\Livewire\Students\StudentEdit;
 use App\Livewire\Students\StudentIndex;
+use App\Livewire\Students\StudentShow;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,10 +64,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('students', StudentIndex::class)->name('students.index');
     Route::get('students/create', StudentCreate::class)->name('students.create');
     Route::get('students/edit/{id}', StudentEdit::class)->name('students.edit');
+    Route::get('students/show/{id}', StudentShow::class)->name('students.show');
 
+    // staffs routes
+    Route::get('staffs', StaffIndex::class)->name('staffs.index');
+    Route::get('staffs/create', StaffCreate::class)->name('staffs.create');
+    Route::get('staffs/edit/{id}', StaffEdit::class)->name('staffs.edit');
+    Route::get('staffs/show/{id}', StaffShow::class)->name('staffs.show');
+
+    // structure routes
+    Route::get('structures', StructureIndex::class)->name('structures');
+    Route::get('structures/create', StructureCreate::class)->name('structures.create');
+    Route::get('structures/edit/{id}', StructureEdit::class)->name('structures.edit');
+    Route::get('structures/show/{id}', StructureEdit::class)->name('structures.show');
+
+    // settings routes
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
