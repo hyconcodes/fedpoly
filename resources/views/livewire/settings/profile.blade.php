@@ -74,6 +74,37 @@ new class extends Component {
 
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
+            <div class="mb-4">
+                <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4">
+                    <!-- Profile Photo File Input -->
+                    <input type="file" class="hidden"
+                        wire:model.live="photo"
+                        x-ref="photo"
+                        x-on:change="
+                            photoName = $refs.photo.files[0].name;
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                photoPreview = e.target.result;
+                            };
+                            reader.readAsDataURL($refs.photo.files[0]);
+                        " />
+
+                    <!-- Current Profile Photo -->
+                    <div class="mt-2" x-show="! photoPreview">
+                        <img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}" class="h-20 w-20 rounded-full object-cover">
+                    </div>
+
+                    <!-- New Profile Photo Preview -->
+                    <div class="mt-2" x-show="photoPreview" style="display: none;">
+                        <img :src="photoPreview" class="h-20 w-20 rounded-full object-cover">
+                    </div>
+
+                    <flux:button type="button" class="mt-2" x-on:click.prevent="$refs.photo.click()">
+                        {{ __('Select A New Photo') }}
+                    </flux:button>
+                </div>
+            </div>
+
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 
             <div>

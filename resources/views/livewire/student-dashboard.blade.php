@@ -1,11 +1,15 @@
 <?php
+use Livewire\Volt\Component;
+new class extends Component {
 
-use function Livewire\Volt\{state};
-
-function openModal() {
-    $this->modal('confirm-details')->show();
+public function openModal() {
+    if(Auth()->user()->picture === null){
+        $this->modal('upload-picture')->show();
+    }else{
+        $this->modal('confirm-details')->show();
+    }
 }
-?>
+}?>
 
 <div>
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
