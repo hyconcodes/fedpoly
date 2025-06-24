@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('idcards', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum('status', ['completed', 'pending', 'failed'])->default('pending');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('picture')->after('email')->nullable();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('idcards');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('picture');
+        });
     }
 };

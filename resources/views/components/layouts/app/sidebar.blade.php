@@ -25,41 +25,60 @@
                 </flux:navlist.item>
                 @endrole
 
+                @canany(['view.roles', 'create.roles', 'edit.roles', 'delete.roles'])
                 <flux:navlist.item icon="user-group" :href="route('roles.index')"
                     :current="request()-> routeIs('roles.index')" wire:navigate>{{ __('Role') }}
                 </flux:navlist.item>
+                @endcanany
 
+                @canany(['view.schools', 'create.schools', 'edit.schools', 'delete.schools'])
                 <flux:navlist.item icon="academic-cap" :href="route('schools.index')"
                     :current="request()-> routeIs('schools.index')" wire:navigate>{{ __('Schools') }}
                 </flux:navlist.item>
+                @endcanany
 
+                @canany(['view.programs', 'create.programs', 'edit.programs', 'delete.programs'])
                 <flux:navlist.item icon="building-office" :href="route('programs.index')"
                     :current="request()-> routeIs('programs.index')" wire:navigate>{{ __('Programmes') }}
                 </flux:navlist.item>
+                @endcanany
 
+                @canany(['view.departments', 'create.departments', 'edit.departments', 'delete.departments'])
                 <flux:navlist.item icon="building-office-2" :href="route('departments.index')"
                     :current="request()-> routeIs('departments.index')" wire:navigate>{{ __('Departments') }}
                 </flux:navlist.item>
+                @endcanany
 
+                @canany(['view.students', 'create.students', 'edit.students', 'delete.students'])
                 <flux:navlist.item icon="user-circle" :href="route('students.index')"
                     :current="request()-> routeIs('students.index')" wire:navigate>{{ __('Manage Students') }}
                 </flux:navlist.item>
+                @endcanany
 
+                @canany(['view.staffs', 'create.staffs', 'edit.staffs', 'delete.staffs'])
                 <flux:navlist.item icon="user" :href="route('staffs.index')"
                     :current="request()-> routeIs('staffs.index')" wire:navigate>{{ __('Manage Staffs') }}
                 </flux:navlist.item>
+                @endcanany            
             </flux:navlist.group>
         </flux:navlist>
 
         <flux:navlist variant="outline">
+            @canany(['view.items', 'create.items', 'edit.items', 'delete.items', 'view.structures', 'create.structures', 'edit.structures', 'delete.structures'])
             <flux:navlist.group :heading="__('Inventory')" class="grid" expandable>
+                @canany(['view.structures', 'create.structures', 'edit.structures', 'delete.structures'])
                 <flux:navlist.item icon="home-modern" :href="route('structures')" :current="request() -> routeIs('structures')"
                     wire:navigate>{{ __('Structure') }}
                 </flux:navlist.item>
+                @endcanany
+                
+                @canany(['view.items', 'create.items', 'edit.items', 'delete.items'])
                 <flux:navlist.item icon="cog" :href="route('items')" :current="request() -> routeIs('items')"
                     wire:navigate>{{ __('Items') }}
                 </flux:navlist.item>
+                @endcanany
             </flux:navlist.group>
+            @endcanany
         </flux:navlist>
 
         <flux:spacer />
