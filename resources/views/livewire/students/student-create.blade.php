@@ -6,7 +6,6 @@
             class="flex flex-col md:flex-row w-full md:w-auto items-start md:items-center gap-4">
             <flux:heading class="flex items-center gap-2">
                 Info
-
                 <flux:tooltip>
                     <flux:button icon="information-circle" size="sm" variant="ghost" />
 
@@ -17,7 +16,8 @@
 
                         <p>
                             1. The first row must contain column headers matching the required format. Save your file
-                            with UTF-8 encoding to avoid character issues. <a href="{{ asset('student_sample.csv') }}" download >Download Sample File</a>.
+                            with UTF-8 encoding to avoid character issues. <a href="{{ asset('student_sample.csv') }}"
+                                download>Download Sample File</a>.
                         </p>
 
                         <p>
@@ -46,11 +46,56 @@
                 </flux:button>
             </div>
 
+            {{-- School --}}
+                <div class="w-full">
+                    {{-- <label for="school" class="block text-sm font-medium text-gray-700 mb-1">School</label> --}}
+                    <flux:select wire:model.defer="school_id" wire:change="populateDepartment($event.target.value)" id="school"
+                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        <option value="">Select School</option>
+                        @foreach($schools as $school)
+                            <option value="{{ $school->id }}">{{ $school->name }}</option>
+                        @endforeach
+                    </flux:select>
+                    @error('school')
+                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- Department --}}
+                <div class="w-full">
+                    {{-- <label for="department" class="block text-sm font-medium text-gray-700 mb-1">Department</label> --}}
+                    <flux:select wire:model.defer="department_id" id="department"
+                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        <option value="">Select Department</option>
+                        @foreach($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                        @endforeach
+                    </flux:select>
+                    @error('department')
+                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- Programs --}}
+                <div class="w-full">
+                    {{-- <label for="program" class="block text-sm font-medium text-gray-700 mb-1">Program</label> --}}
+                    <flux:select wire:model.defer="program_id" id="program"
+                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        <option value="">Select Program</option>
+                        @foreach($programs as $program)
+                            <option value="{{ $program->id }}">{{ $program->name }}</option>
+                        @endforeach
+                    </flux:select>
+                    @error('program')
+                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+
             @error('csv_file')
                 <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
             @enderror
 
-            <flux:button type="submit" class="w-full md:w-auto">{{ __('Import') }}</flux:button>
+            <flux:button type="submit" class="w-full md:w-auto !text-white !bg-purple-600">{{ __('Import') }}</flux:button>
 
             @if ($csv_file)
                 <p class="text-sm text-center text-purple-700 mt-2">{{ $csv_file->getClientOriginalName() }}</p>
@@ -74,6 +119,51 @@
         <flux:input wire:model="matric_no" :label="__('Matric Number')" type="text" required autocomplete="matric_no"
             :placeholder="__('Enter your matric number')" />
 
+        {{-- School --}}
+        <div class="mb-6">
+            <label for="school" class="block text-sm font-medium text-gray-700 mb-1">School</label>
+            <flux:select wire:model.defer="school_id" wire:change="populateDepartment($event.target.value)"
+                id="school"
+                class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                <option value="">Select School</option>
+                @foreach ($schools as $school)
+                    <option value="{{ $school->id }}">{{ $school->name }}</option>
+                @endforeach
+            </flux:select>
+            @error('school')
+                <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+            @enderror
+        </div>
+
+        {{-- Department --}}
+        <div class="mb-6">
+            <label for="department" class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+            <flux:select wire:model.defer="department_id" id="department"
+                class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                <option value="">Select Department</option>
+                @foreach ($departments as $department)
+                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                @endforeach
+            </flux:select>
+            @error('department')
+                <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+            @enderror
+        </div>
+
+        {{-- Programs --}}
+        <div class="mb-6">
+            <label for="program" class="block text-sm font-medium text-gray-700 mb-1">Program</label>
+            <flux:select wire:model.defer="program_id" id="program"
+                class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                <option value="">Select Program</option>
+                @foreach ($programs as $program)
+                    <option value="{{ $program->id }}">{{ $program->name }}</option>
+                @endforeach
+            </flux:select>
+            @error('program')
+                <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+            @enderror
+        </div>
         <!-- Password -->
         <flux:input wire:model="password" :label="__('Password')" type="password" required autocomplete="new-password"
             :placeholder="__('Enter a secure password')" />

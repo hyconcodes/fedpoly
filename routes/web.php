@@ -3,6 +3,7 @@
 use App\Livewire\Departments\DepartmentCreate;
 use App\Livewire\Departments\DepartmentEdit;
 use App\Livewire\Departments\DepartmentIndex;
+use App\Livewire\Departments\DepartmentShow;
 use App\Livewire\Items\ItemCreate;
 use App\Livewire\Items\ItemEdit;
 use App\Livewire\Items\ItemIndex;
@@ -69,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('departments', DepartmentIndex::class)->name('departments.index')->middleware('permission:view.departments|create.departments|edit.departments|delete.departments');
     Route::get('departments/create', DepartmentCreate::class)->name('departments.create')->middleware('permission:create.departments');
     Route::get('departments/edit/{id}', DepartmentEdit::class)->name('departments.edit')->middleware('permission:edit.departments');
+    Route::get('departments/view/{id}', DepartmentShow::class)->name('departments.show')->middleware('permission:view.departments');
 
     // students routes
     Route::get('students', StudentIndex::class)->name('students.index')->middleware('permission:view.students|create.students|edit.students|delete.students');
@@ -86,7 +88,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('structures', StructureIndex::class)->name('structures')->middleware('permission:view.structures|create.structures|edit.structures|delete.structures');
     Route::get('structures/create', StructureCreate::class)->name('structures.create')->middleware('permission:create.structures');
     Route::get('structures/edit/{id}', StructureEdit::class)->name('structures.edit')->middleware('permission:edit.structures');
-    // Route::get('structures/show/{id}', StructureEdit::class)->name('structures.show')->middleware('permission:view.structures');
+    Route::get('structures/show/{id}', StructureEdit::class)->name('structures.show')->middleware('permission:view.structures');
 
     // item routes
     Route::get('items', ItemIndex::class)->name('items')->middleware('permission:view.items|create.items|edit.items|delete.items');

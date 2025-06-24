@@ -33,6 +33,21 @@
                                 @enderror
                             </div>
                         </div>
+                        {{-- dept --}}
+                        <div class="w-full">
+                            <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
+                            <div class="mt-1">
+                                <flux:select wire:model="department_id" id="department" class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                                    <option value="">Select Department</option>
+                                    @foreach($departments as $dept)
+                                        <option value="{{ $dept->id }}">{{ $dept->name }}</option>
+                                    @endforeach
+                                </flux:select>
+                                @error('department')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

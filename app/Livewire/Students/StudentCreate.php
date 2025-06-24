@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Students;
 
+use App\Models\Program;
+use App\Models\School;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
@@ -14,9 +16,19 @@ use Spatie\Permission\Models\Role;
 class StudentCreate extends Component
 {
     public $name, $email, $matric_no, $password, $password_confirmation;
-    public $role, $csv_file;
+    public $role, $csv_file, $school_id, $program_id, $department_id, $schools, $programs, $departments = [];
 
     use WithFileUploads;
+
+    public function mount()
+    {
+        $this->schools = School::all();
+        $this->programs = Program::all();
+    }
+
+    public function populateDepartment($id){
+        $this->departments = School::find($id)->departments;
+    }
 
     public function createStudent()
     {
@@ -25,12 +37,18 @@ class StudentCreate extends Component
             'email' => 'required|email|unique:users,email|min:3',
             'matric_no' => 'nullable|string|unique:users,matric_no',
             'password' => 'required|string|confirmed|min:6',
+            'school_id' => 'required|exists:schools,id',
+            'department_id' => 'nullable|exists:departments,id',
+            'program_id' => 'required|exists:programs,id',
         ]);
         $student = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'matric_no' => $this->matric_no,
             'password' => Hash::make($this->password),
+            'school_id' => $this->school_id,
+            'department_id' => $this->department_id,
+            'program_id' => $this->program_id,
         ]);
         if ($student) {
             $this->role = Role::where('name', 'Student')->first();
@@ -100,6 +118,9 @@ class StudentCreate extends Component
         try {
             $this->validate([
                 'csv_file' => 'required|file|mimes:csv,xlsx,xls,txt|max:5048',
+                'school_id' => 'required|exists:schools,id',
+                'program_id' => 'required|exists:programs,id',
+                'department_id' => 'nullable|exists:departments,id',
             ]);
 
             $collection = Excel::toCollection(null, $this->csv_file)[0];
@@ -128,6 +149,9 @@ class StudentCreate extends Component
                             'father_name' => $rowData['father_name'] ?? null,
                             'mother_name' => $rowData['mother_name'] ?? null,
                             'password' => Hash::make(Str::random(10)),
+                            'school_id' => $this->school_id,
+                            'program_id' => $this->program_id,
+                            'department_id' => $this->department_id,
                         ]
                     );
 

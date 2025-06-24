@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     protected
-    $fillable = ['name', 'type', 'location', 'quantity', 'unit', 'description'];
+        $fillable = ['name', 'type', 'location', 'quantity', 'unit', 'description', 'department_id'];
 
     public function scopeStructures($query)
     {
@@ -17,6 +17,11 @@ class Inventory extends Model
     public function scopeItems($query)
     {
         return $query->where('type', 'item');
+    }
 
+    // all inventories belongs to a particular department
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 }

@@ -49,6 +49,9 @@
                                     {{ $department->school->name ?? 'N/A' }}</td>
                                 <td class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                     <div class="flex items-center justify-end gap-x-2">
+                                        <flux:button size="sm" variant="subtle" primary icon="eye"
+                                            wire:navigate href="{{ route('departments.show', $department) }}"
+                                            :tooltip="__('View Department')" />
                                         <flux:button size="sm" variant="subtle" primary icon="pencil"
                                             wire:navigate href="{{ route('departments.edit', $department) }}"
                                             :tooltip="__('Edit Department')" />

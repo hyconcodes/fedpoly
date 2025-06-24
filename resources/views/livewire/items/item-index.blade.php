@@ -31,6 +31,8 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Description</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Department</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Actions</th>
                         </tr>
                     </thead>
@@ -41,6 +43,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $item->quantity }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $item->unit }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $item->description }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $item->department->name ?? 'No Department yet' }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <div class="flex space-x-2">
                                         <a href="{{ route('items.edit', $item) }}"

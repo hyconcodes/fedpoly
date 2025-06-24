@@ -44,6 +44,12 @@
                             Matric No</th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-semibold text-purple-600 uppercase tracking-wider">
+                            School</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-semibold text-purple-600 uppercase tracking-wider">
+                            Department</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-semibold text-purple-600 uppercase tracking-wider">
                             Actions</th>
                     </tr>
                 </thead>
@@ -66,7 +72,14 @@
                                 <div class="text-sm text-purple-900">{{ $student->matric_no ?? 'No matric no yet' }}
                                 </div>
                             </td>
-
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-purple-900">{{ $student->school->name ?? 'No school assigned' }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-purple-900">{{ $student->department->name ?? 'No department assigned' }}
+                                </div>
+                            </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex space-x-3">

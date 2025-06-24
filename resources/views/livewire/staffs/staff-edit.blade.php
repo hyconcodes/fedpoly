@@ -48,6 +48,59 @@
                         <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
                     @enderror
                 </div>
+                <!-- Staff Type -->
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Staff
+                            Type</label>
+                        <div class="flex gap-4">
+                            <div class="flex items-center">
+                                <input type="radio" name="academic_staff" wire:model="academic_staff" value="true"
+                                    class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+                                    {{ $academic_staff === true ? 'checked' : '' }}>
+                                <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">Academic Staff</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" name="academic_staff" wire:model="academic_staff" value="false"
+                                    class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+                                    {{ $academic_staff === false ? 'checked' : '' }}>
+                                <label class="ml-2 text-sm text-gray-700 dark:text-gray-300">Non-Academic Staff</label>
+                            </div>
+                        </div>
+                    </div>
+                    @error('academic_staff')
+                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+                {{-- School --}}
+                <div class="mb-6">
+                    <label for="school" class="block text-sm font-medium text-gray-700 mb-1">School</label>
+                    <flux:select wire:model.defer="school_id" wire:change="populateDepartment($event.target.value)"
+                        id="school"
+                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        <option value="">Select School</option>
+                        @foreach ($schools as $school)
+                            <option value="{{ $school->id }}">{{ $school->name }}</option>
+                        @endforeach
+                    </flux:select>
+                    @error('school')
+                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+                {{-- Department --}}
+                <div class="mb-6">
+                    <label for="department" class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                    <flux:select wire:model.defer="department_id" id="department"
+                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        <option value="">Select Department</option>
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                        @endforeach
+                    </flux:select>
+                    @error('department')
+                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
                 {{-- Password --}}
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
