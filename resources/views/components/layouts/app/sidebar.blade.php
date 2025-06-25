@@ -59,7 +59,13 @@
                 <flux:navlist.item icon="user" :href="route('staffs.index')"
                     :current="request()-> routeIs('staffs.index')" wire:navigate>{{ __('Manage Staffs') }}
                 </flux:navlist.item>
-                @endcanany            
+                @endcanany
+
+                @canany(['view.settings', 'create.settings', 'edit.settings', 'delete.settings'])
+                <flux:navlist.item icon="cog" :href="route('settings.admin')"
+                    :current="request()-> routeIs('settings.admin')" wire:navigate>{{ __('Admin Settings') }}
+                </flux:navlist.item>
+                @endcanany
             </flux:navlist.group>
         </flux:navlist>
 

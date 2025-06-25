@@ -1,15 +1,15 @@
 <?php
 use Livewire\Volt\Component;
 new class extends Component {
-
-public function openModal() {
-    if(Auth()->user()->picture === null){
-        $this->modal('upload-picture')->show();
-    }else{
-        $this->modal('confirm-details')->show();
+    public function openModal()
+    {
+        if (Auth()->user()->picture === null) {
+            $this->modal('upload-picture')->show();
+        } else {
+            $this->modal('confirm-details')->show();
+        }
     }
-}
-}?>
+}; ?>
 
 <div>
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
@@ -28,7 +28,7 @@ public function openModal() {
                 @endcan
 
                 <flux:modal name="confirm-details" class="md:w-200">
-                    <div class="space-y-6 ">
+                    <div class="space-y-6">
                         <div class="">
                             <flux:heading size="lg">Your Details</flux:heading>
                             <flux:text class="mt-2">Confirm your personal information</flux:text>
@@ -38,18 +38,34 @@ public function openModal() {
                                 <img src="{{ auth()->user()->picture }}" alt="Profile Picture"
                                     class="h-full w-full object-cover" />
                             </div>
-                            <div class="space-y-2 text-center">
-                                <div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                <div class="text-center">
                                     <flux:text class="font-semibold">Name</flux:text>
                                     <flux:text>{{ auth()->user()->name }}</flux:text>
                                 </div>
-                                <div>
+                                <div class="text-center">
                                     <flux:text class="font-semibold">Matric Number</flux:text>
                                     <flux:text>{{ auth()->user()->matric_no }}</flux:text>
                                 </div>
-                                <div>
+                                <div class="text-center">
                                     <flux:text class="font-semibold">Email</flux:text>
                                     <flux:text>{{ auth()->user()->email }}</flux:text>
+                                </div>
+                                <div class="text-center">
+                                    <flux:text class="font-semibold">Gender</flux:text>
+                                    <flux:text>{{ auth()->user()->gender }}</flux:text>
+                                </div>
+                                <div class="text-center">
+                                    <flux:text class="font-semibold">Department</flux:text>
+                                    <flux:text>{{ auth()->user()->department->name }}</flux:text>
+                                </div>
+                                <div class="text-center">
+                                    <flux:text class="font-semibold">Program</flux:text>
+                                    <flux:text>{{ auth()->user()->program->name }}</flux:text>
+                                </div>
+                                <div class="text-center">
+                                    <flux:text class="font-semibold">School</flux:text>
+                                    <flux:text>{{ auth()->user()->school->name }}</flux:text>
                                 </div>
                             </div>
                         </div>

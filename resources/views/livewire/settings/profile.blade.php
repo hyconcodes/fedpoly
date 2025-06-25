@@ -144,6 +144,7 @@ new class extends Component {
                 @endif
             </div>
 
+            @if(auth()->user()->hasRole('Student'))
             <div class="space-y-4">
                 <div>
                     <flux:text class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Matric Number') }}</flux:text>
@@ -165,7 +166,7 @@ new class extends Component {
                     <flux:text class="block mt-1">{{ auth()->user()->program->name }}</flux:text>
                 </div>
             </div>
-
+            @endif
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
                     <flux:button variant="primary" type="submit" class="w-full">{{ __('Save') }}</flux:button>

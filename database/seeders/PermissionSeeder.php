@@ -73,6 +73,11 @@ class PermissionSeeder extends Seeder
             // 'delete.transcript',
 
             // 'pay.transcript',
+
+            // 'view.settings',
+            // 'create.settings',
+            // 'edit.settings',
+            // 'delete.settings',
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
