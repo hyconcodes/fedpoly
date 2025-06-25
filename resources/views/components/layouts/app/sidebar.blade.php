@@ -66,6 +66,18 @@
                     :current="request()-> routeIs('settings.admin')" wire:navigate>{{ __('Admin Settings') }}
                 </flux:navlist.item>
                 @endcanany
+
+                @canany(['view.idc', 'create.idc', 'edit.idc', 'delete.idc'])
+                <flux:navlist.item icon="credit-card" :href="route('idcard.pay')"
+                    :current="request()-> routeIs('idcard.pay')" wire:navigate>{{ __('ID Card') }}
+                </flux:navlist.item>
+                @endcanany
+
+                @canany(['view.transcript', 'create.transcript', 'edit.transcript', 'delete.transcript'])
+                <flux:navlist.item icon="document-currency-bangladeshi" :href="route('idcard.pay')"
+                    :current="request()-> routeIs('idcard.pay')" wire:navigate>{{ __('Transcript') }}
+                </flux:navlist.item>
+                @endcanany
             </flux:navlist.group>
         </flux:navlist>
 

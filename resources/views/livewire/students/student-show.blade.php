@@ -14,8 +14,13 @@
             <div class="w-24 h-24 bg-purple-200 rounded-full mr-4">
                 <!-- Student photo placeholder -->
 
-                <flux:avatar size="xl" class="w-full h-full rounded-full object-cover" name="{{ $student->name }}"
-                    color="auto" color:seed="{{ $student->id }}" />
+                @if (!$student->picture)
+                    <flux:avatar size="xl" class="w-full h-full rounded-full object-cover"
+                        name="{{ $student->name }}" color="auto" color:seed="{{ $student->id }}" />
+                @else
+                    <img src="{{ asset($student->picture) }}" alt="{{ $student->name }}"
+                        class="w-full h-full rounded-full object-cover">
+                @endif
             </div>
             <div>
                 <h1 class="text-2xl font-bold">{{ $student->name ?? 'No name yet' }}</h1>
@@ -35,8 +40,10 @@
 
                 <div class="border-b pb-2">
                     <h2 class="text-lg font-semibold">Academic Information</h2>
-                    {{-- <p><span class="font-medium">Grade/Class:</span> 10th Grade</p>
-                    <p><span class="font-medium">Section:</span> A</p> --}}
+                    <p><span class="font-medium">Department:</span>
+                        {{ $student->department->name ?? 'No department yet' }}</p>
+                    <p><span class="font-medium">School:</span> {{ $student->school->name ?? 'No school yet' }}</p>
+                    <p><span class="font-medium">Program:</span> {{ $student->program->name ?? 'No program yet' }}</p>
                     <p><span class="font-medium">Admission Date:</span>
                         {{ $student->year_of_entry ?? 'No admission date yet' }}</p>
                 </div>

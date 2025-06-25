@@ -95,11 +95,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('items/create', ItemCreate::class)->name('items.create')->middleware('permission:create.items');
     Route::get('items/edit/{id}', ItemEdit::class)->name('items.edit')->middleware('permission:edit.items');
 
+    //id card routes
+    Volt::route('idcards/idcardpayments', 'idcard-show')->name('idcard.pay');
+
     // settings routes
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-    
+
     Volt::route('admin/admin-settings', 'settings')->name('settings.admin')->middleware('permission:view.settings|edit.settings|delete.settings|create.settings');
 });
 
