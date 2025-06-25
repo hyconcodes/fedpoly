@@ -74,8 +74,8 @@
                 @endcanany
 
                 @canany(['view.transcript', 'create.transcript', 'edit.transcript', 'delete.transcript'])
-                <flux:navlist.item icon="document-currency-bangladeshi" :href="route('idcard.pay')"
-                    :current="request()-> routeIs('idcard.pay')" wire:navigate>{{ __('Transcript') }}
+                <flux:navlist.item icon="document-currency-bangladeshi" :href="route('transcripts.pay')"
+                    :current="request()-> routeIs('transcripts.pay')" wire:navigate>{{ __('Transcript') }}
                 </flux:navlist.item>
                 @endcanany
             </flux:navlist.group>

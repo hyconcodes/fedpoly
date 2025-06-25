@@ -2,25 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\IDcard;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class IDcardSeeder extends Seeder
+class TranscriptSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        // IDcard::truncate();
-
-        for ($i = 23; $i <= 50; $i++) {
-            DB::table('idcards')->insert([
+        for ($i = 40; $i <= 54; $i++) {
+            DB::table('transcripts')->insert([
                 'user_id' => $i,
                 'status' => 'completed',
-                'transaction_id' => 'FED/ID/' . date('Y') . '/' . $i,
+                'transaction_id' => 'FED/TRS/' . date('Y') . '/' . $i,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

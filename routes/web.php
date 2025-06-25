@@ -96,7 +96,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('items/edit/{id}', ItemEdit::class)->name('items.edit')->middleware('permission:edit.items');
 
     //id card routes
-    Volt::route('idcards/idcardpayments', 'idcard-show')->name('idcard.pay');
+    Volt::route('idcards/idcard-payments', 'idcard-show')->name('idcard.pay');
+
+    //transcripts routes
+    Volt::route('transcripts/transcripts-payments', 'transcript-show')->name('transcripts.pay');
 
     // settings routes
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');

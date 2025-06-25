@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IDcard extends Model
+class Transcript extends Model
 {
-    protected $table = 'idcards';
-    protected $fillable = ['user_id', 'status', 'transaction_id'];
+    protected $fillable = [
+        'user_id',
+        'status',
+        'transaction_id'
+    ];
 
     public function user()
     {

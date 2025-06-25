@@ -1,7 +1,7 @@
 <?php
-use App\Models\IDcard;
-use Livewire\Volt\Component;
+use App\Models\Transcript;
 use Livewire\WithPagination;
+use Livewire\Volt\Component;
 
 new class extends Component {
     use WithPagination;
@@ -11,7 +11,7 @@ new class extends Component {
     public function with(): array
     {
         return [
-            'idcardspayment' => IDcard::where('status', 'completed')
+            'transcriptspayment' => Transcript::where('status', 'completed')
                 ->with(['user', 'user.department'])
                 ->whereHas('user', function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
@@ -28,8 +28,8 @@ new class extends Component {
 
 <div>
     <div class="relative mb-6 w-full">
-        <flux:heading size="xl" level="1">{{ __('Student ID Card') }}</flux:heading>
-        <flux:subheading size="lg" class="mb-6">{{ __('View student ID card payment status') }}
+        <flux:heading size="xl" level="1">{{ __('Transcript') }}</flux:heading>
+        <flux:subheading size="lg" class="mb-6">{{ __('View student transcripts payment status') }}
         </flux:subheading>
         <flux:separator variant="subtle" />
     </div>
@@ -59,7 +59,7 @@ new class extends Component {
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-                @foreach ($idcardspayment as $payment)
+                @foreach ($transcriptspayment as $payment)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap flex items-center">
                             @if ($payment->user->picture)
@@ -85,7 +85,7 @@ new class extends Component {
             </tbody>
         </table>
         <div class="mt-4">
-            {{ $idcardspayment->links() }}
+            {{ $transcriptspayment->links() }}
         </div>
     </div>
 </div>
