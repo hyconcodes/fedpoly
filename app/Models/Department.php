@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\School;
+use App\Models\Inventory;
 
 class Department extends Model
 {
@@ -15,7 +18,7 @@ class Department extends Model
 
     public function students()
     {
-        return $this->hasMany(User::class)
+        return $this->hasMany(User::class, 'department_id')
             ->whereHas('roles', function ($query) {
                 $query->where('name', 'Student');
             });
@@ -23,14 +26,21 @@ class Department extends Model
 
     public function staffs()
     {
-        return $this->hasMany(User::class)
+        return $this->hasMany(User::class, 'department_id')
             ->whereHas('roles', function ($query) {
                 $query->where('name', 'Staff');
             });
     }
 
-    public function inventories()
+    public function structures()
     {
-        return $this->hasMany(Inventory::class);
+        return $this->hasMany(Inventory::class, 'department_id')
+            ->where('type', 'structure');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Inventory::class, 'department_id')
+            ->where('type', 'item');
     }
 }

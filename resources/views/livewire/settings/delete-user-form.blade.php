@@ -51,7 +51,11 @@ new class extends Component {
                     <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
                 </flux:modal.close>
 
-                <flux:button variant="danger" type="submit">{{ __('Delete account') }}</flux:button>
+                @can('delete.student.account')
+                    <flux:button variant="danger" type="submit">{{ __('Delete account') }}</flux:button>
+                @else
+                    <flux:button variant="danger" type="submit" disabled>{{ __('Account deletion is not permitted') }}</flux:button>
+                @endcan
             </div>
         </form>
     </flux:modal>

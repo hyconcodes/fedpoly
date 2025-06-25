@@ -2,106 +2,116 @@
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <flux:heading size="xl" class="my-4" level="1">{{ __('Create Student Account') }}</flux:heading>
 
-        <form wire:submit.prevent="uploadCsv" enctype="multipart/form-data"
-            class="flex flex-col md:flex-row w-full md:w-auto items-start md:items-center gap-4">
-            <flux:heading class="flex items-center gap-2">
-                Info
-                <flux:tooltip>
-                    <flux:button icon="information-circle" size="sm" variant="ghost" />
+        <flux:modal.trigger name="upload_csv">
+            <flux:button class="!bg-purple-600 !text-white !hover:bg-purple-500">Upload Csv</flux:button>
+        </flux:modal.trigger>
 
-                    <flux:tooltip.content class="max-w-[20rem] space-y-2">
-                        <p>
-                            Please ensure your CSV file follows these guidelines before uploading:
+        <flux:modal name="upload_csv" class="md:w-96">
+            <div class="space-y-6">
+                <flux:heading>Upload Csv</flux:heading>
+                <form wire:submit.prevent="uploadCsv" enctype="multipart/form-data" class="flex flex-col space-y-4">
+                    <flux:heading class="flex items-center gap-2">
+                        Info
+                        <flux:tooltip>
+                            <flux:button icon="information-circle" size="sm" variant="ghost" />
+
+                            <flux:tooltip.content class="max-w-[20rem] space-y-2">
+                                <p>
+                                    Please ensure your CSV file follows these guidelines before uploading:
+                                </p>
+
+                                <p>
+                                    1. The first row must contain column headers matching the required format. Save your
+                                    file
+                                    with UTF-8 encoding to avoid character issues. <a
+                                        href="{{ asset('student_sample.csv') }}" download>Download Sample File</a>.
+                                </p>
+
+                                <p>
+                                    2. <strong>Matric Number</strong> must be unique. Duplicate matric numbers will be
+                                    skipped.
+                                </p>
+
+                                <p>
+                                    3. <strong>Email</strong> must also be unique and valid. Duplicate or invalid emails
+                                    will
+                                    not be imported.
+                                </p>
+
+                                <p>
+                                    Any row that doesn't meet these requirements will be skipped during the import.
+                                </p>
+
+                            </flux:tooltip.content>
+                        </flux:tooltip>
+                    </flux:heading>
+
+                    <div class="relative w-full">
+                        <input type="file" id="csv_upload" wire:model="csv_file" accept=".csv,.xlsx,.xls"
+                            class="absolute inset-0 opacity-0 cursor-pointer z-10" />
+
+                        <flux:button variant="primary" as="span" class="w-full">
+                            {{ __('Upload CSV File') }}
+                        </flux:button>
+                    </div>
+
+                    {{-- School --}}
+                    <div class="w-full">
+                        <flux:select wire:model.defer="school_id" wire:change="populateDepartment($event.target.value)"
+                            id="school"
+                            class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                            <option value="">Select School</option>
+                            @foreach ($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </flux:select>
+                        @error('school')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Department --}}
+                    <div class="w-full">
+                        <flux:select wire:model.defer="department_id" id="department"
+                            class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                            <option value="">Select Department</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </flux:select>
+                        @error('department')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Programs --}}
+                    <div class="w-full">
+                        <flux:select wire:model.defer="program_id" id="program"
+                            class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                            <option value="">Select Program</option>
+                            @foreach ($programs as $program)
+                                <option value="{{ $program->id }}">{{ $program->name }}</option>
+                            @endforeach
+                        </flux:select>
+                        @error('program')
+                            <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    @error('csv_file')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+
+                    <flux:button type="submit" class="w-full !text-white !bg-purple-600">{{ __('Import') }}
+                    </flux:button>
+
+                    @if ($csv_file)
+                        <p class="text-sm text-center text-purple-700 mt-2">{{ $csv_file->getClientOriginalName() }}
                         </p>
-
-                        <p>
-                            1. The first row must contain column headers matching the required format. Save your file
-                            with UTF-8 encoding to avoid character issues. <a href="{{ asset('student_sample.csv') }}"
-                                download>Download Sample File</a>.
-                        </p>
-
-                        <p>
-                            2. <strong>Matric Number</strong> must be unique. Duplicate matric numbers will be skipped.
-                        </p>
-
-                        <p>
-                            3. <strong>Email</strong> must also be unique and valid. Duplicate or invalid emails will
-                            not be imported.
-                        </p>
-
-                        <p>
-                            Any row that doesn't meet these requirements will be skipped during the import.
-                        </p>
-
-                    </flux:tooltip.content>
-                </flux:tooltip>
-            </flux:heading>
-
-            <div class="relative inline-block w-full md:w-auto">
-                <input type="file" id="csv_upload" wire:model="csv_file" accept=".csv,.xlsx,.xls"
-                    class="absolute inset-0 opacity-0 cursor-pointer z-10" />
-
-                <flux:button variant="primary" as="span" class="w-full md:w-auto">
-                    {{ __('Upload CSV File') }}
-                </flux:button>
+                    @endif
+                </form>
             </div>
-
-            {{-- School --}}
-                <div class="w-full">
-                    {{-- <label for="school" class="block text-sm font-medium text-gray-700 mb-1">School</label> --}}
-                    <flux:select wire:model.defer="school_id" wire:change="populateDepartment($event.target.value)" id="school"
-                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-                        <option value="">Select School</option>
-                        @foreach($schools as $school)
-                            <option value="{{ $school->id }}">{{ $school->name }}</option>
-                        @endforeach
-                    </flux:select>
-                    @error('school')
-                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                {{-- Department --}}
-                <div class="w-full">
-                    {{-- <label for="department" class="block text-sm font-medium text-gray-700 mb-1">Department</label> --}}
-                    <flux:select wire:model.defer="department_id" id="department"
-                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-                        <option value="">Select Department</option>
-                        @foreach($departments as $department)
-                            <option value="{{ $department->id }}">{{ $department->name }}</option>
-                        @endforeach
-                    </flux:select>
-                    @error('department')
-                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                {{-- Programs --}}
-                <div class="w-full">
-                    {{-- <label for="program" class="block text-sm font-medium text-gray-700 mb-1">Program</label> --}}
-                    <flux:select wire:model.defer="program_id" id="program"
-                        class="w-full px-3 border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-                        <option value="">Select Program</option>
-                        @foreach($programs as $program)
-                            <option value="{{ $program->id }}">{{ $program->name }}</option>
-                        @endforeach
-                    </flux:select>
-                    @error('program')
-                        <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
-
-            @error('csv_file')
-                <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
-            @enderror
-
-            <flux:button type="submit" class="w-full md:w-auto !text-white !bg-purple-600">{{ __('Import') }}</flux:button>
-
-            @if ($csv_file)
-                <p class="text-sm text-center text-purple-700 mt-2">{{ $csv_file->getClientOriginalName() }}</p>
-            @endif
-        </form>
-    </div>
+        </flux:modal>    </div>
 
     @include('includes.messages')
     <flux:separator variant="subtle" />
@@ -173,7 +183,8 @@
             autocomplete="new-password" :placeholder="__('Confirm your password')" />
 
         <div class="flex flex-col md:flex-row justify-end gap-3">
-            <flux:button variant="subtle" wire:navigate href="{{ route('students.index') }}" class="w-full md:w-auto">
+            <flux:button variant="subtle" wire:navigate href="{{ route('students.index') }}"
+                class="w-full md:w-auto">
                 {{ __('Cancel') }}
             </flux:button>
             <flux:button type="submit" variant="primary" class="w-full md:w-auto">

@@ -38,13 +38,13 @@
                 @endcanany
 
                 @canany(['view.programs', 'create.programs', 'edit.programs', 'delete.programs'])
-                <flux:navlist.item icon="building-office" :href="route('programs.index')"
+                <flux:navlist.item icon="academic-cap" :href="route('programs.index')"
                     :current="request()-> routeIs('programs.index')" wire:navigate>{{ __('Programmes') }}
                 </flux:navlist.item>
                 @endcanany
 
                 @canany(['view.departments', 'create.departments', 'edit.departments', 'delete.departments'])
-                <flux:navlist.item icon="building-office-2" :href="route('departments.index')"
+                <flux:navlist.item icon="academic-cap" :href="route('departments.index')"
                     :current="request()-> routeIs('departments.index')" wire:navigate>{{ __('Departments') }}
                 </flux:navlist.item>
                 @endcanany
@@ -83,7 +83,7 @@
 
         <flux:spacer />
 
-        <flux:navlist variant="outline">
+        <flux:navlist variant="outline" class="hidden">
             <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit"
                 target="_blank">
                 {{ __('Repository') }}

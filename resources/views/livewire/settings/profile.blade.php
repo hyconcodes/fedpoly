@@ -5,11 +5,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 
 new class extends Component {
     public string $name = '';
     public string $email = '';
 
+    use WithFileUploads;
     /**
      * Mount the component.
      */
@@ -22,13 +24,14 @@ new class extends Component {
     /**
      * Update the profile information for the currently authenticated user.
      */
+    public $photo;
+
     public function updateProfileInformation(): void
     {
         $user = Auth::user();
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-
             'email' => [
                 'required',
                 'string',
@@ -37,12 +40,22 @@ new class extends Component {
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id)
             ],
+            'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $user->fill($validated);
+        $user->fill([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+        ]);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+        }
+
+        // Handle photo upload
+        if (!empty($this->photo)) {
+            $path = $this->photo->store('picture', 'public');
+            $user->picture = '/storage/' . $path;
         }
 
         $user->save();
@@ -73,12 +86,12 @@ new class extends Component {
     @include('partials.settings-heading')
 
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
+        <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6" enctype="multipart/form-data">
             <div class="mb-4">
                 <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4">
                     <!-- Profile Photo File Input -->
                     <input type="file" class="hidden"
-                        wire:model.live="photo"
+                        wire:model="photo"
                         x-ref="photo"
                         x-on:change="
                             photoName = $refs.photo.files[0].name;
@@ -89,26 +102,28 @@ new class extends Component {
                             reader.readAsDataURL($refs.photo.files[0]);
                         " />
 
-                    <!-- Current Profile Photo -->
-                    <div class="mt-2" x-show="! photoPreview">
-                        <img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}" class="h-20 w-20 rounded-full object-cover">
-                    </div>
+                    <div class="flex items-center gap-4">
+                        <!-- Current Profile Photo -->
+                        <div class="mt-2" x-show="! photoPreview">
+                            <img src="{{ auth()->user()->picture }}" alt="{{ auth()->user()->name }}" class="h-20 w-20 rounded-full object-cover">
+                            {{-- <img src="{{ Storage::url(auth()->user()->picture) }}" alt="{{ auth()->user()->name }}" class="h-20 w-20 rounded-full object-cover"> --}}
+                        </div>
 
-                    <!-- New Profile Photo Preview -->
-                    <div class="mt-2" x-show="photoPreview" style="display: none;">
-                        <img :src="photoPreview" class="h-20 w-20 rounded-full object-cover">
-                    </div>
+                        <!-- New Profile Photo Preview -->
+                        <div class="mt-2" x-show="photoPreview" style="display: none;">
+                            <img :src="photoPreview" class="h-20 w-20 rounded-full object-cover">
+                        </div>
 
-                    <flux:button type="button" class="mt-2" x-on:click.prevent="$refs.photo.click()">
-                        {{ __('Select A New Photo') }}
-                    </flux:button>
+                        <flux:button type="button" class="mt-2" x-on:click.prevent="$refs.photo.click()">
+                            {{ __('Select A New Photo') }}
+                        </flux:button>
+                    </div>
                 </div>
             </div>
-
-            <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
+            <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" disabled />
 
             <div>
-                <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" readonly />
+                <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" readonly disabled />
 
                 @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&! auth()->user()->hasVerifiedEmail())
                     <div>
@@ -127,6 +142,28 @@ new class extends Component {
                         @endif
                     </div>
                 @endif
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <flux:text class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Matric Number') }}</flux:text>
+                    <flux:text class="block mt-1">{{ auth()->user()->matric_no }}</flux:text>
+                </div>
+
+                <div>
+                    <flux:text class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Department') }}</flux:text>
+                    <flux:text class="block mt-1">{{ auth()->user()->department->name }}</flux:text>
+                </div>
+
+                <div>
+                    <flux:text class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('School') }}</flux:text>
+                    <flux:text class="block mt-1">{{ auth()->user()->school->name }}</flux:text>
+                </div>
+
+                <div>
+                    <flux:text class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Program') }}</flux:text>
+                    <flux:text class="block mt-1">{{ auth()->user()->program->name }}</flux:text>
+                </div>
             </div>
 
             <div class="flex items-center gap-4">
