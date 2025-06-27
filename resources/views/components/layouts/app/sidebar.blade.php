@@ -9,7 +9,7 @@
     <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-        <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+        <a href="" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
             <x-app-logo />
         </a>
 
@@ -25,78 +25,114 @@
                 </flux:navlist.item>
                 @endrole
 
+                @not_academic()
                 @canany(['view.roles', 'create.roles', 'edit.roles', 'delete.roles'])
                 <flux:navlist.item icon="user-group" :href="route('roles.index')"
                     :current="request()-> routeIs('roles.index')" wire:navigate>{{ __('Role') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
 
+                @not_academic()
                 @canany(['view.schools', 'create.schools', 'edit.schools', 'delete.schools'])
                 <flux:navlist.item icon="academic-cap" :href="route('schools.index')"
                     :current="request()-> routeIs('schools.index')" wire:navigate>{{ __('Schools') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
 
+                @not_academic()
                 @canany(['view.programs', 'create.programs', 'edit.programs', 'delete.programs'])
                 <flux:navlist.item icon="academic-cap" :href="route('programs.index')"
                     :current="request()-> routeIs('programs.index')" wire:navigate>{{ __('Programmes') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
 
+                @not_academic()
                 @canany(['view.departments', 'create.departments', 'edit.departments', 'delete.departments'])
                 <flux:navlist.item icon="academic-cap" :href="route('departments.index')"
                     :current="request()-> routeIs('departments.index')" wire:navigate>{{ __('Departments') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
 
+                @not_academic()
                 @canany(['view.students', 'create.students', 'edit.students', 'delete.students'])
                 <flux:navlist.item icon="user-circle" :href="route('students.index')"
                     :current="request()-> routeIs('students.index')" wire:navigate>{{ __('Manage Students') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
 
+                @not_academic()
                 @canany(['view.staffs', 'create.staffs', 'edit.staffs', 'delete.staffs'])
                 <flux:navlist.item icon="user" :href="route('staffs.index')"
                     :current="request()-> routeIs('staffs.index')" wire:navigate>{{ __('Manage Staffs') }}
                 </flux:navlist.item>
                 @endcanany
-
+                @endnot_academic
+                
+                @not_academic()
                 @canany(['view.settings', 'create.settings', 'edit.settings', 'delete.settings'])
                 <flux:navlist.item icon="cog" :href="route('settings.admin')"
                     :current="request()-> routeIs('settings.admin')" wire:navigate>{{ __('Admin Settings') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
 
+                @not_academic()
                 @canany(['view.idc', 'create.idc', 'edit.idc', 'delete.idc'])
                 <flux:navlist.item icon="credit-card" :href="route('idcard.pay')"
                     :current="request()-> routeIs('idcard.pay')" wire:navigate>{{ __('ID Card') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
 
+                @not_academic()
                 @canany(['view.transcript', 'create.transcript', 'edit.transcript', 'delete.transcript'])
                 <flux:navlist.item icon="document-currency-bangladeshi" :href="route('transcripts.pay')"
                     :current="request()-> routeIs('transcripts.pay')" wire:navigate>{{ __('Transcript') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
+
+                @academic()
+                <flux:navlist.item icon="document-currency-bangladeshi" :href="route('publications')"
+                    :current="request()-> routeIs('publications')" wire:navigate>{{ __('My Publications') }}
+                </flux:navlist.item>
+                @endacademic
+
+                @academic()
+                <flux:navlist.item icon="academic-cap" :href="route('academic')"
+                    :current="request()-> routeIs('academic')" wire:navigate>{{ __('Academic Profile') }}
+                </flux:navlist.item>
+                @endacademic
             </flux:navlist.group>
         </flux:navlist>
 
         <flux:navlist variant="outline">
+            @not_academic()
             @canany(['view.items', 'create.items', 'edit.items', 'delete.items', 'view.structures', 'create.structures', 'edit.structures', 'delete.structures'])
             <flux:navlist.group :heading="__('Inventory')" class="grid" expandable>
+                @not_academic()
                 @canany(['view.structures', 'create.structures', 'edit.structures', 'delete.structures'])
                 <flux:navlist.item icon="home-modern" :href="route('structures')" :current="request() -> routeIs('structures')"
                     wire:navigate>{{ __('Structure') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
                 
+                @not_academic()
                 @canany(['view.items', 'create.items', 'edit.items', 'delete.items'])
                 <flux:navlist.item icon="cog" :href="route('items')" :current="request() -> routeIs('items')"
                     wire:navigate>{{ __('Items') }}
                 </flux:navlist.item>
                 @endcanany
+                @endnot_academic
             </flux:navlist.group>
             @endcanany
+            @endnot_academic
         </flux:navlist>
 
         <flux:spacer />
@@ -148,6 +184,12 @@
                         {{ __('Settings') }}</flux:menu.item>
                 </flux:menu.radio.group>
 
+                @academic()
+                <flux:menu.item :href="route('academic')" icon="academic-cap" wire:navigate>
+                        {{ __('Academic Profile') }}
+                </flux:menu.item>
+                @endacademic
+
                 <flux:menu.separator />
 
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
@@ -167,7 +209,7 @@
         <flux:spacer />
 
         <flux:dropdown position="top" align="end">
-            <flux:profile :initials="auth()->user()->initials() "icon-trailing="chevron-down" />
+            <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
 
             <flux:menu>
                 <flux:menu.radio.group>
@@ -191,8 +233,15 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
+                    @academic()
+                    <flux:menu.item :href="route('academic')" icon="academic-cap" wire:navigate>
+                        {{ __('Academic Profile') }}
+                    </flux:menu.item>
+                    @endacademic
+
                     <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>
-                        {{ __('Settings') }}</flux:menu.item>
+                        {{ __('Settings') }}
+                    </flux:menu.item>
                 </flux:menu.radio.group>
 
                 <flux:menu.separator />

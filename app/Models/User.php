@@ -107,4 +107,14 @@ class User extends Authenticatable // implements MustVerifyEmail
     //         });
     //     }
     // }
+
+    public function academic()
+    {
+        return $this->hasOne(Education::class);
+    }
+
+    public function publications()
+    {
+        return $this->hasMany(Publication::class);
+    }
 }

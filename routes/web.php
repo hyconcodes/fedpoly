@@ -27,21 +27,22 @@ use App\Livewire\Students\StudentCreate;
 use App\Livewire\Students\StudentEdit;
 use App\Livewire\Students\StudentIndex;
 use App\Livewire\Students\StudentShow;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-
-
-
-
-
+// add a route for migrating here
+Route::get('migrate', function () {
+    Artisan::call('migrate');
+    return 'migrated!!!';
+});
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'prohibit-student-admin'])
     ->name('dashboard');
 
 Volt::route('student/dashboard', 'student-dashboard')
@@ -106,7 +107,14 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
+    // admin settings routes
     Volt::route('admin/admin-settings', 'settings')->name('settings.admin')->middleware('permission:view.settings|edit.settings|delete.settings|create.settings');
+
+    // academic educational biodata routes
+    Volt::route('academic/educational-biodata', 'academic')->name('academic')->middleware('is-academic-staff');
+
+    // publications routes
+    Volt::route('publications/academic-publications-data', 'publication')->name('publications')->middleware('is-academic-staff');
 });
 
 require __DIR__ . '/auth.php';
