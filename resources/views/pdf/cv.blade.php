@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>{{ $user->name }} - CV</title>
+    <title>{{ $user->name ?? 'CV' }}</title>
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;
@@ -30,33 +30,38 @@
     </style>
 </head>
 <body>
-    <h1>{{ $user->name }}</h1>
+    <h1>{{ $user->name ?? 'N/A' }}</h1>
     <p>
-        {{ $user->address }}<br>
-        Phone: {{ $user->phone }}{{ $user->alt_phone ? ', ' . $user->alt_phone : '' }}<br>
-        Email: {{ $user->email }}
+        {{ $user->address ?? 'N/A' }}<br>
+        Phone: {{ $user->phone ?? 'N/A' }}<br>
+        Email: {{ $user->email ?? 'N/A' }}<br>
+        Gender: {{ $user->gender ?? 'N/A' }}<br>
+        Nationality: {{ $user->nationality ?? 'N/A' }}<br>
+        Date of Birth: {{ $user->dob ?? 'N/A' }}
     </p>
 
-    {{-- <div class="section">
+    <div class="section">
         <div class="section-title">Career Objective</div>
-        <p>{{ $user->objective }}</p>
-    </div> --}}
+        <p>{{ $user->objective ?? 'N/A' }}</p>
+    </div>
 
+    @if(isset($education) && $education)
     <div class="section">
         <div class="section-title">Educational Background</div>
         <div class="entry">
-            <span class="bold">{{ $education->institution }}</span><br>
-            {{ $education->degree_level }} in {{ $education->field_of_study }} ({{ $education->graduation_date }})
+            <span class="bold">{{ $education->institution ?? 'N/A' }}</span><br>
+            {{ $education->degree_level ?? 'N/A' }} in {{ $education->field_of_study ?? 'N/A' }} ({{ $education->graduation_date ?? 'N/A' }})
         </div>
     </div>
+    @endif
 
     @if(!empty($publications))
     <div class="section">
         <div class="section-title">Publications</div>
         @foreach($publications as $publication)
         <div class="entry">
-            <span class="bold">{{ $publication['title'] }}</span><br>
-            {{ $publication['journal_conference'] }} ({{ $publication['publication_year'] }})<br>
+            <span class="bold">{{ $publication['title'] ?? 'N/A' }}</span><br>
+            {{ $publication['journal_conference'] ?? 'N/A' }} ({{ $publication['publication_year'] ?? 'N/A' }})<br>
             @if(!empty($publication['doi']))
             DOI: {{ $publication['doi'] }}
             @endif
@@ -68,42 +73,42 @@
     {{-- @if(!empty($user->certifications))
     <div class="section">
         <div class="section-title">Certifications</div>
-        <p>{!! nl2br(e($user->certifications)) !!}</p>
+        <p>{!! nl2br(e($user->certifications ?? '')) !!}</p>
     </div>
     @endif --}}
 
     {{-- @if(!empty($user->experience))
     <div class="section">
         <div class="section-title">Professional Experience</div>
-        <p>{!! nl2br(e($user->experience)) !!}</p>
+        <p>{!! nl2br(e($user->experience ?? '')) !!}</p>
     </div>
     @endif --}}
 
     {{-- @if(!empty($user->skills))
     <div class="section">
         <div class="section-title">Skills</div>
-        <p>{!! nl2br(e($user->skills)) !!}</p>
+        <p>{!! nl2br(e($user->skills ?? '')) !!}</p>
     </div>
     @endif
 
     @if(!empty($user->languages))
     <div class="section">
         <div class="section-title">Languages</div>
-        <p>{!! nl2br(e($user->languages)) !!}</p>
+        <p>{!! nl2br(e($user->languages ?? '')) !!}</p>
     </div>
     @endif
 
     @if(!empty($user->hobbies))
     <div class="section">
         <div class="section-title">Hobbies and Interests</div>
-        <p>{!! nl2br(e($user->hobbies)) !!}</p>
+        <p>{!! nl2br(e($user->hobbies ?? '')) !!}</p>
     </div>
     @endif
 
     @if(!empty($user->references))
     <div class="section">
         <div class="section-title">References</div>
-        <p>{!! nl2br(e($user->references)) !!}</p>
+        <p>{!! nl2br(e($user->references ?? '')) !!}</p>
     </div>
     @endif --}}
 </body>

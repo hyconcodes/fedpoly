@@ -1,6 +1,7 @@
 <?php
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Volt\Component;
+use Illuminate\Support\Str;
 
 new class extends Component {
     public $degree_level;
@@ -8,31 +9,62 @@ new class extends Component {
     public $institution;
     public $graduation_date;
     public $academic;
+    public $gender;
+    public $dob;
+    public $objective;
+    public $nationality;
+    public $phone;
+    public $address;
 
     public function mount()
     {
-        $this->academic = auth()->user()->academic ?? null;
+        $user = auth()->user();
+        $this->academic = $user->academic ?? null;
+        $this->gender = $user->gender;
+        $this->dob = $user->dob;
+        $this->objective = $user->objective;
+        $this->nationality = $user->nationality;
+        $this->phone = $user->phone;
+        $this->address = $user->address;
+        
+        if ($this->academic) {
+            $this->degree_level = $this->academic->degree_level;
+            $this->field_of_study = $this->academic->field_of_study;
+            $this->institution = $this->academic->institution;
+            $this->graduation_date = $this->academic->graduation_date;
+        }
     }
 
     public function save()
     {
-        $validated = $this->validate([
+        $userValidated = $this->validate([
+            'gender' => 'required',
+            'dob' => 'required|date',
+            'objective' => 'required',
+            'nationality' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+
+        $academicValidated = $this->validate([
             'degree_level' => 'required',
             'field_of_study' => 'required',
             'institution' => 'required',
             'graduation_date' => 'required|date',
-            // 'graduation_date' => 'required|numeric|min:1900|max:' . (date('Y') + 10),
         ]);
 
-        $validated['user_id'] = auth()->id();
+        // Update user data
+        auth()->user()->update($userValidated);
+
+        $academicValidated['user_id'] = auth()->id();
 
         if ($this->academic) {
-            auth()->user()->academic()->update($validated);
+            auth()->user()->academic()->update($academicValidated);
         } else {
-            auth()->user()->academic()->create($validated);
+            auth()->user()->academic()->create($academicValidated);
         }
 
-        $this->reset(['degree_level', 'field_of_study', 'institution', 'graduation_date']);
+        // $this->reset(['degree_level', 'field_of_study', 'institution', 'graduation_date']);
         $this->academic = auth()->user()->academic;
     }
 
@@ -47,11 +79,17 @@ new class extends Component {
     public function downloadPDF()
     {
         $user = auth()->user();
-        $education = $user->academic; // Assuming a hasOne relationship
-        $publications = $user->publications; // Assuming a hasMany relationship
 
-        $pdf = Pdf::loadView('pdf.cv', compact('user', 'education'));
-        return $pdf->download('My_CV.pdf');
+        $education = $user->academic;
+        $publications = $user->publications ?? collect();
+
+        $data = compact('user', 'education', 'publications');
+
+        $pdf = Pdf::loadView('pdf.cv', $data);
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, Str::slug($user->name) . '_CV.pdf');
     }
 }; ?>
 <div>
@@ -79,9 +117,51 @@ new class extends Component {
     @include('includes.messages')
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-lg font-semibold mb-4">Add Academic Qualification</h2>
+            <h2 class="text-lg font-semibold mb-4">Update your profile</h2>
             <form wire:submit="save">
                 <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Gender</label>
+                        <flux:select wire:model="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </flux:select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Date of Birth</label>
+                        <flux:input type="date" wire:model="dob"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nationality</label>
+                        <flux:input type="text" wire:model="nationality"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Address</label>
+                        <flux:input type="text" wire:model="address"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Phone</label>
+                        <flux:input type="tel" wire:model="phone"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                    </div>
+
+                    <h2 class="text-lg font-semibold mb-4">Add Academic Qualification</h2>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Career Objective</label>
+                        <flux:textarea wire:model="objective"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" rows="3">
+                        </flux:textarea>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Degree Level</label>
                         <flux:select wire:model="degree_level"
@@ -116,7 +196,7 @@ new class extends Component {
 
                     <flux:button type="submit"
                         class="w-full !bg-purple-700 !text-white py-2 px-4 !rounded-md !hover:bg-purple-500">
-                        Save Academic Qualification
+                        Save Academic & Profile Information
                     </flux:button>
                 </div>
             </form>
@@ -127,7 +207,13 @@ new class extends Component {
             @if ($academic)
                 <div class="space-y-4">
                     <div class="border p-4 rounded-md">
-                        <h3 class="font-medium">{{ $academic->degree_level }} in {{ $academic->field_of_study }}
+                        <p class="text-gray-600">Gender: {{ auth()->user()->gender }}</p>
+                        <p class="text-gray-600">Date of Birth: {{ auth()->user()->dob }}</p>
+                        <p class="text-gray-600">Nationality: {{ auth()->user()->nationality }}</p>
+                        <p class="text-gray-600">Address: {{ auth()->user()->address }}</p>
+                        <p class="text-gray-600">Phone: {{ auth()->user()->phone }}</p>
+                        <p class="text-gray-600">Objective: {{ auth()->user()->objective }}</p>
+                        <h3 class="font-medium mt-4">{{ $academic->degree_level }} in {{ $academic->field_of_study }}
                         </h3>
                         <p class="text-gray-600">{{ $academic->institution }}</p>
                         <p class="text-gray-500 text-sm">Graduated: {{ $academic->graduation_date }}</p>

@@ -49,7 +49,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-purple-200">
                         @forelse($staffs as $staff)
-                            <tr>
+                            <tr class="hover:bg-purple-50 transition duration-300 cursor-pointer" onclick="window.location='{{ route('staffs.show', $staff->id) }}'">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <flux:avatar name="{{ $staff->name }}" color="auto"
                                         color:seed="{{ $staff->id }}" />
